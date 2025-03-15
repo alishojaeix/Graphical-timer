@@ -1,0 +1,40 @@
+import tkinter as tk
+from tkinter import messagebox
+import time
+
+def countdown(seconds):
+    while seconds >= 0:
+        mins, secs = divmod(seconds, 60)
+        timer.set(f'{mins:02d}:{secs:02d}')
+        root.update()
+        time.sleep(1)
+        seconds -= 1
+    messagebox.showinfo("Timer", "Time's up!")
+
+def start_timer():
+    try:
+        seconds = int(entry.get())
+        countdown(seconds)
+    except ValueError:
+        messagebox.showerror("Error", "Please enter a valid number of seconds.")
+
+# Create the main window
+root = tk.Tk()
+root.title("Timer")
+
+# Create a label for the timer
+timer = tk.StringVar()
+timer.set("00:00")
+label = tk.Label(root, textvariable=timer, font=("Arial", 48))
+label.pack(pady=20)
+
+# Create an entry for user input
+entry = tk.Entry(root, font=("Arial", 24))
+entry.pack(pady=10)
+
+# Create a start button
+start_button = tk.Button(root, text="Start Timer", font=("Arial", 18), command=start_timer)
+start_button.pack(pady=10)
+
+# Run the application
+root.mainloop()
